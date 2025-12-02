@@ -1,0 +1,38 @@
+[workspace]
+resolver = "2"
+
+members = ["day-*"]
+
+[workspace.dependencies]
+regex = "1.12"
+itertools = "0.14"
+rayon = "1.11"
+glam = "0.30"
+nom = "8.0"
+tracing = "0.1.43"
+tracing-subscriber = "0.3.22"
+rstest = "0.26"
+rstest_reuse = "0.7"
+criterion = { version = "0.7", features = ["html_reports"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+enum_glob_use = "deny"
+pedantic = { level = "deny", priority = -1 }
+nursery = { level = "deny", priority = -1 }
+# Personally not a big fan of this warning/error, we're going to exclude it from pedantic
+module_name_repetitions = "warn"
+
+[profile.release]
+opt-level = 3 # change to s to reduce binary size with a performance tradeoff
+lto = "fat"
+codegen-units = 1
+panic = 'abort'
+strip = "symbols"
+
+[profile.flamegraph]
+inherits = "release"
+strip = "none"
+debug = true
