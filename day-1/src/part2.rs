@@ -1,6 +1,6 @@
 
 pub fn process(_input: &str) -> String {
-    todo!("{{project-name}} - part 2")
+    todo!("day-1 - part 2")
 }
 
 #[cfg(test)]

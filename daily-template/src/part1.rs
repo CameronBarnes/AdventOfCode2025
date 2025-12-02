@@ -1,6 +1,5 @@
 
-#[tracing::instrument]
-pub fn process(_input: &str) -> impl IntoString {
+pub fn process(_input: &str) -> String {
     todo!("{{project-name}} - part 1")
 }
 
