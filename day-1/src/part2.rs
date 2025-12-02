@@ -1,11 +1,59 @@
-
-pub fn process(_input: &str) -> String {
-    todo!("day-1 - part 2")
+#[allow(clippy::missing_panics_doc)]
+#[must_use]
+pub fn process(input: &str) -> String {
+    let mut num: i32 = 50;
+    let mut zeros = 0;
+    input
+        .lines()
+        .map(|line| {
+            let pair = line.split_at(1);
+            (pair.0, pair.1.parse::<u16>().unwrap())
+        })
+        .for_each(|(direction, number)| {
+            let number = i32::from(number);
+            match direction {
+                "L" => {
+                    num -= number;
+                    zeros += num / 100;
+                    num %= 100;
+                    if num < 0 {
+                        zeros += 1;
+                        num += 100;
+                    }
+                }
+                "R" => {
+                    num += number;
+                    zeros += num / 100;
+                    num %= 100;
+                }
+                _ => unreachable!(),
+            }
+        });
+    zeros.to_string()
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_example() {
+        assert_eq!(
+            "6",
+            process(
+                "L68
+L30
+R48
+L5
+R60
+L55
+L1
+L99
+R14
+L82"
+            )
+        );
+    }
 
     #[test]
     fn test_process() {
